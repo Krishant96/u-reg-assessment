@@ -38,7 +38,7 @@
 
 <script>
 import axios from 'axios';
-// import { API_URL, API_KEY } from '../../.env'
+import { API_URL, API_KEY } from '../../.env.js'
 
 export default {
   name: 'Currency',
@@ -66,9 +66,9 @@ export default {
       try {
         this.loading = true;
 
-        const { data } = await axios.get(`https://api.apilayer.com/currency_data/live`, {
+        const { data } = await axios.get(`${API_URL}/live`, {
           headers: {
-            'apikey': 'PzrYkggtQQLGySvqxKVoppzF3NzUo0ns'
+            'apikey': API_KEY
           }
         });
 
@@ -87,9 +87,9 @@ export default {
       try {
         this.loading = true;
 
-        const { data } = await axios.get(`https://api.apilayer.com/currency_data/historical?date=${params}`, {
+        const { data } = await axios.get(`${API_URL}/historical?date=${params}`, {
           headers: {
-            'apikey': 'PzrYkggtQQLGySvqxKVoppzF3NzUo0ns'
+            'apikey': API_KEY
           }
         });
 
