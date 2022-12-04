@@ -11,6 +11,8 @@ npm install -g @vue/cli
 npm install
 ```
 
+### Create .env.js by duplicating .env.js.sample
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
