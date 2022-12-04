@@ -1,6 +1,12 @@
 # u-reg-assessment
 
 ## Project setup
+### Install Vue CLI
+```
+npm install -g @vue/cli
+```
+
+### Install Project Dependencies
 ```
 npm install
 ```
