@@ -38,6 +38,7 @@
 
 <script>
 import axios from 'axios';
+import { format, endOfDay, isBefore, isEqual, parseISO } from 'date-fns';
 import { API_URL, API_KEY } from '../../.env.js'
 
 export default {
@@ -85,19 +86,26 @@ export default {
 
     async fetchHistoricalCurrencyData(params = {}) {
       try {
-        this.loading = true;
+        const date1 = this.date;
+        const date2 = format(endOfDay(new Date()), 'yyyy-MM-dd');
 
-        const { data } = await axios.get(`${API_URL}/historical?date=${params}`, {
-          headers: {
-            'apikey': API_KEY
+        if (isBefore(parseISO(date1), parseISO(date2)) || isEqual(parseISO(date1), parseISO(date2))) {
+          this.loading = true;
+
+          const { data } = await axios.get(`${API_URL}/historical?date=${params}`, {
+            headers: {
+              'apikey': API_KEY
+            }
+          });
+
+          if (data) {
+            this.keys = [];
+            this.values = [];
+            this.keys = Object.keys(data.quotes);
+            this.values = Object.values(data.quotes);
           }
-        });
-
-        if (data) {
-          this.keys = [];
-          this.values = [];
-          this.keys = Object.keys(data.quotes);
-          this.values = Object.values(data.quotes);
+        } else {
+          alert('Invalid date.');
         }
       } catch (e) {
         alert(e);
